@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using System.Web;
 using BlogSample.ViewModels;
 
@@ -24,17 +23,6 @@ namespace BlogSample.Services
 
 			session[PostsConst] = posts;
 			session[PostsCountConst] = postsCount;
-		}
-
-		public void UpdatePost(HttpSessionStateBase session, PostViewModel postViewModel)
-		{
-			var posts = (IList<PostViewModel>)session[PostsConst];
-
-			var postToUpdate = posts.First(p => p.Id == postViewModel.Id);
-			int index = posts.IndexOf(postToUpdate);
-			posts[index] = postViewModel;
-
-			session[PostsConst] = posts;
 		}
 
 		public IEnumerable<PostViewModel> GetPosts(HttpSessionStateBase session)
