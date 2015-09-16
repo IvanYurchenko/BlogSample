@@ -1,0 +1,28 @@
+﻿@model BlogSample.ViewModels.PostViewModel
+
+@{
+	ViewBag.Title = "Blog";
+}
+
+<h2>Blog</h2>
+
+<div class="row">
+	<div class="col-md-4">
+		<p>
+			@Html.LabelFor(m => m.Username)
+			@Html.TextBoxFor(m => m.Username, new { id = "model-username-id" })
+		</p>
+		<p>
+			@Html.LabelFor(m => m.Date)
+			@Html.TextBoxFor(m => m.Date, new { id = "model-date-id" })
+		</p>
+		<p>
+			@Html.LabelFor(m => m.Gender)
+			@Html.DropDownList("gender-dropdown", Model.GendersList, new { id = "model-dropdown" })
+		</p>
+		<p>
+			@Html.LabelFor(m => m.Body)
+			@Html.TextAreaFor(m => m.Body, new { id = "model-body-id" })
+		</p>
+	</div>
+</div>
