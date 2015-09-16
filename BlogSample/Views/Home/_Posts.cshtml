@@ -1,15 +1,39 @@
-﻿@using BlogSample.ViewModels
+﻿@using BlogSample.Enums
+@using BlogSample.ViewModels
 @model IEnumerable<PostViewModel>
 
-<div class="col-lg-4"><h3> Recent comments <span class="badge">@Model.Count()</span></h3></div>
-<div class="col-lg-8"><input type="text" id="textbox-search" class="form-control" /></div>
-<button class="btn btn-primary" id="button-update">Update</button>
-	@foreach (PostViewModel post in Model)
-	{
+<div class="row">
+	<div class="col-lg-12 clearfix">
+		<h3> Recent comments <span class="badge">@Model.Count()</span></h3>
 		<div class="row">
-			<p>@post.Username</p>
-			<p>@post.Date</p>
-			<p>@post.Gender</p>
-			<p>@post.Body</p>
+			<div class="col-lg-3">
+				<input type="text" id="textbox-search" class="form-control" placeholder="Search" />
+			</div>
+			<div class="col-lg-3">
+				<button class="btn btn-primary" id="button-update">Update</button>
+			</div>
 		</div>
-	}
+		
+		@foreach (PostViewModel post in Model)
+		{
+			<hr />
+			<div class="row">
+				<div class="col-lg-12">
+					<h4>
+						@post.Username
+						@if (post.Gender == Gender.Male)
+						{
+							<span class="label label-info">M</span>
+						}
+						else
+						{
+							<span class="label label-danger">F</span>
+						}
+						<small class="pull-right">@post.Date</small>
+					</h4>
+					<p>@post.Body</p>
+				</div>
+			</div>
+		}
+	</div>
+</div>

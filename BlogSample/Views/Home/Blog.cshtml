@@ -11,45 +11,52 @@
 <h2>Blog</h2>
 
 <div class="row">
-	<div class="col-lg-12">
-		<div class="col-lg-4">
-			@using (Ajax.BeginForm("AddPost", null, new AjaxOptions
+	<div class="col-lg-4">
+		@using (Ajax.BeginForm("AddPost", null, new AjaxOptions
 		{
 			HttpMethod = "POST",
-			OnSuccess = "refreshPostsList",
 		}, new { @class = "form-horizontal" }))
-			{
-				<p>
+		{
+			<h3>Post a comment: </h3>
+			<div class="form-group">
+				<div class="col-lg-12">
 					@Html.LabelFor(m => m.Username, new { @class = "control-label" })
 					@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
 					@Html.ValidationMessageFor(m => m.Username)
-				</p>
-				<p>
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-6">
 					@Html.LabelFor(m => m.Date, new { @class = "control-label" })
 					@Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
 					@Html.ValidationMessageFor(m => m.Date)
-				</p>
-				<p>
+				</div>
+				<div class="col-lg-3">
 					@Html.LabelFor(m => m.Gender, new { @class = "control-label" })
 					@Html.DropDownListFor(m => m.Gender, (IEnumerable<SelectListItem>)ViewBag.GendersList, new { @class = "form-control" })
-				</p>
-				<p>
-					@Html.TextAreaFor(m => m.Body, new { @class = "form-control", placeholder = "Leave your comment here." })
+				</div>
+			</div>
+			<div class="form-group">
+				<div class="col-lg-12">
+					@Html.LabelFor(m => m.Body, new { @class = "control-label" })
+					@Html.TextAreaFor(m => m.Body, new { @class = "form-control", placeholder = "Leave your comment here.", rows = "5" })
 					@Html.ValidationMessageFor(m => m.Body)
-				</p>
+				</div>
+			</div>
 
-				<div class="col-lg-3 col-lg-offset-5 btn-group">
+			<div class="form-group">
+				<div class="col-lg-12 col-lg-offset-5 btn-group">
 					<button type="submit" class="btn btn-lg btn-primary">
 						Submit
 						<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
 					</button>
 				</div>
-			}
-		</div>
-		<div class="col-lg-8">
-			<div id="posts-container">
-				@Html.Partial("_Posts", new List<PostViewModel>())
 			</div>
+		}
+	</div>
+	<div class="col-lg-8">
+		<div id="posts-container">
+			@Html.Partial("_Posts", new List<PostViewModel>())
 		</div>
 	</div>
 </div>

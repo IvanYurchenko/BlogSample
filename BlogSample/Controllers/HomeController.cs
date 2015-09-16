@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
-using BlogSample.Enums;
 using BlogSample.Hubs;
 using BlogSample.Services;
 using BlogSample.ViewModels;
@@ -29,12 +28,12 @@ namespace BlogSample.Controllers
 				new SelectListItem
 				{
 					Value = "0",
-					Text = Gender.Male.ToString()
+					Text = "M"
 				},
 				new SelectListItem
 				{
 					Value = "1",
-					Text = Gender.Female.ToString()
+					Text = "F"
 				}
 			};
 
@@ -45,7 +44,7 @@ namespace BlogSample.Controllers
 		[ActionName("Posts")]
 		public ActionResult GetPosts(string searchQuery = null)
 		{
-			IEnumerable<PostViewModel> posts = _storageService.GetPosts(Session);
+			IEnumerable<PostViewModel> posts = _storageService.GetPosts(Session, searchQuery);
 
 			return PartialView("_Posts", posts);
 		}

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
@@ -29,7 +28,7 @@ namespace BlogSample.ViewModels
 
 		[Required]
 		[DisplayName("Body")]
-		[StringLength(2000)]
+		[StringLength(300)]
 		[DataType(DataType.MultilineText)]
 		public string Body { get; set; }
 	}
