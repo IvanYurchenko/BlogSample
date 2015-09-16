@@ -5,37 +5,51 @@
 	ViewBag.Title = "Blog";
 }
 
+<script src="~/Scripts/posts.js" type="text/javascript"></script>
+<script src="~/Scripts/posts-pushing.js" type="text/javascript"></script>
+
 <h2>Blog</h2>
 
 <div class="row">
-	<div class="col-md-4">
-		@using (Ajax.BeginForm("AddPost", new AjaxOptions
+	<div class="col-lg-12">
+		<div class="col-lg-4">
+			@using (Ajax.BeginForm("AddPost", null, new AjaxOptions
 		{
 			HttpMethod = "POST",
-		}))
-		{
-			<p>
-				@Html.LabelFor(m => m.Username)
-				@Html.TextBoxFor(m => m.Username)
-			</p>
-			<p>
-				@Html.LabelFor(m => m.Date)
-				@Html.TextBoxFor(m => m.Date)
-			</p>
-			<p>
-				@Html.LabelFor(m => m.Gender)
-				@Html.DropDownList("gender-dropdown", Model.GendersList)
-			</p>
-			<p>
-				@Html.LabelFor(m => m.Body)
-				@Html.TextAreaFor(m => m.Body)
-			</p>
-		}
-	</div>
-	<div id="posts-container">
-		@Html.Partial("_Posts", new List<PostViewModel>())
+			OnSuccess = "refreshPostsList",
+		}, new { @class = "form-horizontal" }))
+			{
+				<p>
+					@Html.LabelFor(m => m.Username, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Username, new { @class = "form-control" })
+					@Html.ValidationMessageFor(m => m.Username)
+				</p>
+				<p>
+					@Html.LabelFor(m => m.Date, new { @class = "control-label" })
+					@Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+					@Html.ValidationMessageFor(m => m.Date)
+				</p>
+				<p>
+					@Html.LabelFor(m => m.Gender, new { @class = "control-label" })
+					@Html.DropDownListFor(m => m.Gender, (IEnumerable<SelectListItem>)ViewBag.GendersList, new { @class = "form-control" })
+				</p>
+				<p>
+					@Html.TextAreaFor(m => m.Body, new { @class = "form-control", placeholder = "Leave your comment here." })
+					@Html.ValidationMessageFor(m => m.Body)
+				</p>
+
+				<div class="col-lg-3 col-lg-offset-5 btn-group">
+					<button type="submit" class="btn btn-lg btn-primary">
+						Submit
+						<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>
+					</button>
+				</div>
+			}
+		</div>
+		<div class="col-lg-8">
+			<div id="posts-container">
+				@Html.Partial("_Posts", new List<PostViewModel>())
+			</div>
+		</div>
 	</div>
 </div>
-
-<script src="~/Scripts/posts.js"></script>
-<script src="~/Scripts/posts-pushing.js"></script>

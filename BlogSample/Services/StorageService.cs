@@ -12,6 +12,8 @@ namespace BlogSample.Services
 
 		public void AddPost(HttpSessionStateBase session, PostViewModel postViewModel)
 		{
+			FillSession(session);
+
 			var posts = (IList<PostViewModel>)session[PostsConst];
 
 			var postsCount = (int)session[PostsCountConst];
@@ -30,6 +32,8 @@ namespace BlogSample.Services
 
 		public IEnumerable<PostViewModel> GetPosts(HttpSessionStateBase session, string searchQuery = null)
 		{
+			FillSession(session);
+
 			List<PostViewModel> posts = ((IList<PostViewModel>)session[PostsConst]).ToList();
 
 			if (searchQuery != null)
@@ -42,6 +46,12 @@ namespace BlogSample.Services
 			}
 
 			return posts;
+		}
+
+		private void FillSession(HttpSessionStateBase session)
+		{
+			session[PostsConst] = session[PostsConst] ?? new List<PostViewModel>();
+			session[PostsCountConst] = session[PostsCountConst] ?? 0;
 		}
 	}
 }

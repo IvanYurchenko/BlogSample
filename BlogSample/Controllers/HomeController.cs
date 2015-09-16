@@ -1,8 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Web.Mvc;
 using BlogSample.Enums;
-using BlogSample.Extentions;
+using BlogSample.Hubs;
 using BlogSample.Services;
 using BlogSample.ViewModels;
 
@@ -21,14 +22,27 @@ namespace BlogSample.Controllers
 		[ActionName("Blog")]
 		public ActionResult Blog()
 		{
-			var viewModel = new PostViewModel { GendersList = Gender.Male.ToSelectListItems() };
+			var viewModel = new PostViewModel { Date = DateTime.UtcNow };
+
+			ViewBag.GendersList = new List<SelectListItem>
+			{
+				new SelectListItem
+				{
+					Value = "0",
+					Text = Gender.Male.ToString()
+				},
+				new SelectListItem
+				{
+					Value = "1",
+					Text = Gender.Female.ToString()
+				}
+			};
 
 			return View(viewModel);
 		}
 
 		[HttpGet]
 		[ActionName("Posts")]
-		[ChildActionOnly]
 		public ActionResult GetPosts(string searchQuery = null)
 		{
 			IEnumerable<PostViewModel> posts = _storageService.GetPosts(Session);
@@ -47,7 +61,9 @@ namespace BlogSample.Controllers
 
 			_storageService.AddPost(Session, postViewModel);
 
-			return new HttpStatusCodeResult(HttpStatusCode.OK);
+			BlogHub.RefreshPosts();
+
+			return RedirectToAction("Blog");
 		}
 	}
 }

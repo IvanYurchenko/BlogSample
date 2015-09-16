@@ -1,9 +1,9 @@
 ﻿@using BlogSample.ViewModels
 @model IEnumerable<PostViewModel>
 
-<div class="col-md-8">
-	<input type="text" id="textbox-search"/>
-	<button class="btn btn-default" id="button-update">Update</button>
+<div class="col-lg-4"><h3> Recent comments <span class="badge">@Model.Count()</span></h3></div>
+<div class="col-lg-8"><input type="text" id="textbox-search" class="form-control" /></div>
+<button class="btn btn-primary" id="button-update">Update</button>
 	@foreach (PostViewModel post in Model)
 	{
 		<div class="row">
@@ -13,4 +13,3 @@
 			<p>@post.Body</p>
 		</div>
 	}
-</div>

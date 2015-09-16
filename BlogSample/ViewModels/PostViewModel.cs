@@ -27,9 +27,6 @@ namespace BlogSample.ViewModels
 		[DisplayName("Gender")]
 		public Gender Gender { get; set; }
 
-		[HiddenInput]
-		public IEnumerable<SelectListItem> GendersList { get; set; }
-
 		[Required]
 		[DisplayName("Body")]
 		[StringLength(2000)]
