@@ -1,0 +1,16 @@
+﻿@using BlogSample.ViewModels
+@model IEnumerable<PostViewModel>
+
+<div class="col-md-8">
+	<input type="text" id="textbox-search"/>
+	<button class="btn btn-default" id="button-update">Update</button>
+	@foreach (PostViewModel post in Model)
+	{
+		<div class="row">
+			<p>@post.Username</p>
+			<p>@post.Date</p>
+			<p>@post.Gender</p>
+			<p>@post.Body</p>
+		</div>
+	}
+</div>

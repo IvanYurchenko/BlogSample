@@ -8,6 +8,6 @@ namespace BlogSample.Services
 	{
 		void AddPost(HttpSessionStateBase session, PostViewModel postViewModel);
 
-		IEnumerable<PostViewModel> GetPosts(HttpSessionStateBase session);
+		IEnumerable<PostViewModel> GetPosts(HttpSessionStateBase session, string searchQuery = null);
 	}
 }

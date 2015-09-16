@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web;
 using BlogSample.ViewModels;
 
@@ -21,13 +22,25 @@ namespace BlogSample.Services
 
 			posts.Add(postViewModel);
 
+			posts = posts.OrderByDescending(p => p.Date).ToList();
+
 			session[PostsConst] = posts;
 			session[PostsCountConst] = postsCount;
 		}
 
-		public IEnumerable<PostViewModel> GetPosts(HttpSessionStateBase session)
+		public IEnumerable<PostViewModel> GetPosts(HttpSessionStateBase session, string searchQuery = null)
 		{
-			var posts = (IEnumerable<PostViewModel>)session[PostsConst];
+			List<PostViewModel> posts = ((IList<PostViewModel>)session[PostsConst]).ToList();
+
+			if (searchQuery != null)
+			{
+				searchQuery = searchQuery.ToLower();
+
+				posts = posts.Where(p => p.Username.ToLower().Contains(searchQuery) 
+					|| p.Body.ToLower().Contains(searchQuery))
+					.ToList();
+			}
+
 			return posts;
 		}
 	}
