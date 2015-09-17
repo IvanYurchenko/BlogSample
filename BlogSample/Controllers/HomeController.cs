@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using BlogSample.Hubs;
 using BlogSample.Services;
@@ -51,18 +52,18 @@ namespace BlogSample.Controllers
 
 		[HttpPost]
 		[ActionName("AddPost")]
-		public ActionResult AddPost(PostViewModel postViewModel)
+		public JsonResult AddPost(PostViewModel postViewModel)
 		{
 			if (!ModelState.IsValid)
 			{
-				return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+				return Json("Model state is not valid.");
 			}
 
 			_storageService.AddPost(Session, postViewModel);
 
 			BlogHub.RefreshPosts();
 
-			return RedirectToAction("Blog");
+			return Json("Success");
 		}
 	}
 }
